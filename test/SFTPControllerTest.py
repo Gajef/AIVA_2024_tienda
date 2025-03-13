@@ -1,12 +1,18 @@
 import unittest
-from unittest import TestCase
+from src.SFTPController import SFTPController
 
-class MyTestCase(unittest.TestCase):
+class SFTPControllerTest(unittest.TestCase):
+
+    def setUp(self):
+        self.sftp = SFTPController()
+
     def test_retrieve_last_video(self):
-        self.fail()
+        video = self.sftp.retrieve_last_video()
+        self.assertIsNotNone(video)
 
     def test__connect(self):
-        self.fail()
+        connection = self.sftp._connect()
+        self.assertIsNotNone(connection)
 
 if __name__ == '__main__':
     unittest.main()
