@@ -1,3 +1,7 @@
+class SFTPController:
+    def __init__(self):
+        controller = None
+
 def retrieve_last_video():
     _connect()
     return "video.mp4"
