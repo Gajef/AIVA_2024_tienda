@@ -2,9 +2,10 @@ class SFTPController:
     def __init__(self):
         controller = None
 
-def retrieve_last_video():
-    _connect()
-    return "video.mp4"
+    def _connect(self):
+        return "Ping: connected"
 
-def _connect():
-    return "Ping: connected"
+    def retrieve_last_video(self):
+        self._connect()
+        return "video.mp4"
+
