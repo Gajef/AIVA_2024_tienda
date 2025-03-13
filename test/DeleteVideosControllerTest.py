@@ -7,7 +7,7 @@ class TestDeleteVideosController(unittest.TestCase):
         controller = DeleteVideosController()
         videos_path = "ruta/a/los/videos"  # Datos de ejemplo
 
-        # Act: Llamar al método delete_videos
+        # Act: Llamar al metodo delete_videos
         resultado = controller.delete_videos(videos_path)
 
         # Assert: Comprobar que el resultado es exactamente "Eliminados"

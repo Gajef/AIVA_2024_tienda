@@ -7,7 +7,7 @@ class TestCsvGeneratorController(unittest.TestCase):
         controller = CsvGeneratorController()
         inference_data = {"dato": "valor"}  # Datos de ejemplo
 
-        # Act: Llamar al método generate_csv
+        # Act: Llamar al metodo generate csv
         resultado = controller.generate_csv(inference_data)
 
         # Assert: Comprobar que el resultado es exactamente "Generado"
