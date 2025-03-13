@@ -1,4 +1,4 @@
-# AIVA_2025_Sistema de conteo de personas en un centro comercial, frente a un local concreto
+# AIVA_2024: Sistema de conteo de personas en un centro comercial, frente a un local concreto
 
 Este proyecto tiene como objetivo proporcionar una solución automatizada para el conteo de personas que pasan frente a la tienda de nuestro cliente, utilizando las grabaciones de video obtenidas de dos cámaras de vigilancia del centro comercial en el que se encuentra dicho local: una frontal y otra lateral.
 
