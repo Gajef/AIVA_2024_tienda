@@ -12,11 +12,11 @@ class ImpecountController:
         self.email = EmailController()
 
     def run_daily_pipeline(self):
-        print("[1] Obteniendo video del servidor...")
-        video_path = self.sftp.retrieve_last_videos()
+        print("[1] Obteniendo videos del servidor...")
+        videos_path = self.sftp.retrieve_last_videos()
 
         print("[2] Procesando video...")
-        info, csv_path = self.video_processor.count_people(video_path)
+        info, csv_path = self.video_processor.count_people(videos_path)
 
         print("[3] Generando CSV...")
         self.csv_generator.generate_csv(info)

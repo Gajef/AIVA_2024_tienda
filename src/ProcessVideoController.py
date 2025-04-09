@@ -9,30 +9,32 @@ import os
 class ProcessVideoController:
     def __init__(self):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.model = YOLO("yolo11x.pt")
-        self.model.to(self.device)
+        self.model = YOLO("yolo11x.pt").to(self.device)
         self.tracker = DeepSort(max_age=30)
         self.target_class = 0
 
-    def count_people(self, video_path: str):
+    def count_people_frontal(self, video_path: str):
         FRAME_WIDTH = 384
         FRAME_HEIGHT = 288
         line_x = FRAME_WIDTH // 2
 
         cap = cv2.VideoCapture(video_path)
         fps = cap.get(cv2.CAP_PROP_FPS)
-        out = cv2.VideoWriter(f"procesado_{os.path.basename(video_path)}.avi",
-                              cv2.VideoWriter_fourcc(*'MJPG'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
+        output_filename = os.path.basename(video_path)
+        output_path = os.path.join("Videos/Procesado", f"procesado_{output_filename}.avi")
+        out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'MJPG'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
 
         count_right, count_left = set(), set()
-        track_memory, tracking_log = {}, []
+        track_memory = {}
         frame_counter = 0
-        start_time = time.time()
+        unique_ids = set()
+        people_by_frame = []
 
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
                 break
+
             frame = cv2.resize(frame, (FRAME_WIDTH, FRAME_HEIGHT))
             results = self.model(frame, classes=[self.target_class], device=self.device)[0]
 
@@ -49,11 +51,19 @@ class ProcessVideoController:
             for track in tracks:
                 if not track.is_confirmed():
                     continue
+
                 track_id = track.track_id
                 l, t, r, b = track.to_ltrb()
                 cx = int((l + r) / 2)
-                prev_cx = track_memory.get(track_id, None)
+                cy = int((t + b) / 2)
 
+                # Dibujo
+                cv2.rectangle(frame, (int(l), int(t)), (int(r), int(b)), (0, 255, 0), 1)
+                cv2.putText(frame, f'ID: {track_id}', (int(l), int(t) - 5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+                cv2.circle(frame, (cx, cy), 4, (0, 255, 255), -1)
+
+                prev_cx = track_memory.get(track_id, None)
                 if prev_cx is not None:
                     if prev_cx < line_x and cx >= line_x:
                         count_right.add(track_id)
@@ -61,18 +71,24 @@ class ProcessVideoController:
                         count_left.add(track_id)
 
                 track_memory[track_id] = cx
-                tracking_log.append({"frame": frame_counter, "track_id": track_id, "cx": cx})
+                unique_ids.add(track_id)
 
+            # Métricas y línea
+            cv2.line(frame, (line_x, 0), (line_x, FRAME_HEIGHT), (0, 0, 255), 2)
+            cv2.putText(frame, f'Left to Right: {len(count_right)}', (10, 20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+            cv2.putText(frame, f'Right to Left: {len(count_left)}', (10, 40),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+
+            people_by_frame.append((frame_counter, len(unique_ids)))
             frame_counter += 1
             out.write(frame)
 
         cap.release()
         out.release()
 
-        df = pd.DataFrame(tracking_log)
-        csv_path = f"tracking_{os.path.basename(video_path)}.csv"
-        df.to_csv(csv_path, index=False)
+        print(f"➡️ Video procesado: {output_path}")
+        return people_by_frame
 
-        info = f"Left to Right: {len(count_right)} | Right to Left: {len(count_left)}"
-        print(info)
-        return info, csv_path
+    def count_people_lateral(self, video_path: str):
+        return "Not implemented", None
