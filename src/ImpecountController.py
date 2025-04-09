@@ -1,5 +1,4 @@
 import argparse
-
 from SFTPController import SFTPController
 from VideoController import VideoController
 from CsvGeneratorController import CsvGeneratorController
@@ -22,10 +21,11 @@ class ImpecountController:
         videos_path = self.sftp.retrieve_last_videos()
 
         print("[2] Procesando video...")
-        info = self.video_processor.count_people_frontal(videos_path[0])
+        people_by_frame, processed_video_path = self.video_processor.count_people_frontal(videos_path[0])
+        videos_path.append(processed_video_path)
 
         print("[3] Generando CSV...")
-        csv_path = self.csv_generator.generate_csv(info)
+        csv_path = self.csv_generator.generate_csv(people_by_frame)
 
         # Obtener la fecha del día anterior
         ayer = (datetime.now() - timedelta(days=1)).strftime("%d/%m/%Y")
@@ -42,9 +42,8 @@ class ImpecountController:
         else:
             print("⚠️ Hubo un problema al enviar el informe por email.")
 
-        # print("[5] Eliminando video...")
-        # os.remove(video_path)
-        # return "✅ Proceso completo"
+        self.video_processor.delete_videos(videos_path)
+        return "✅ Proceso completo"
 
     def run(self):
         while True:
