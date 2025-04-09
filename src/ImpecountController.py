@@ -1,5 +1,5 @@
 from SFTPController import SFTPController
-from ProcessVideoController import VideoController
+from VideoController import VideoController
 from CsvGeneratorController import CsvGeneratorController
 from EmailController import EmailController
 import os
