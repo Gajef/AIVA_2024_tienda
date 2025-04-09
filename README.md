@@ -24,16 +24,6 @@ Puedes instalar todas las dependencias con:
 pip install -r requirements.txt
 ```
 
-Si no tienes el archivo `requirements.txt`, aquí tienes las principales dependencias manualmente:
-
-```bash
-pip install ultralytics
-pip install opencv-python
-pip install deep_sort_realtime
-pip install pandas
-pip install paramiko
-```
-
 ---
 
 ## 🔄 Clonar el repositorio
