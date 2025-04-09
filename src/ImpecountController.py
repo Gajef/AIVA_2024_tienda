@@ -17,10 +17,10 @@ class ImpecountController:
 
         print("[2] Procesando video...")
         info = self.video_processor.count_people_frontal(videos_path[0])
-'''
-        print("[3] Generando CSV...")
-        self.csv_generator.generate_csv(info)
 
+        print("[3] Generando CSV...")
+        csv_path = self.csv_generator.generate_csv(info)
+'''
         print("[4] Enviando email...")
         self.email.send_email(
             subject="Informe diario de afluencia",
