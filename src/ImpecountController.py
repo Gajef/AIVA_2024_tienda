@@ -3,6 +3,7 @@ from VideoController import VideoController
 from CsvGeneratorController import CsvGeneratorController
 from EmailController import EmailController
 import os
+from datetime import datetime, timedelta
 
 class ImpecountController:
     def __init__(self):
@@ -20,14 +21,22 @@ class ImpecountController:
 
         print("[3] Generando CSV...")
         csv_path = self.csv_generator.generate_csv(info)
-'''
+
+        # Obtener la fecha del día anterior
+        ayer = (datetime.now() - timedelta(days=1)).strftime("%d/%m/%Y")
+
         print("[4] Enviando email...")
-        self.email.send_email(
+        status = self.email.send_email(
             subject="Informe diario de afluencia",
-            body=info,
+            body=f"Analítica del día {ayer}",
             attachment_path=csv_path
         )
 
+        if status == "OK":
+            print("📩 Envío del informe completado con éxito.")
+        else:
+            print("⚠️ Hubo un problema al enviar el informe por email.")
+'''
         print("[5] Eliminando video...")
         os.remove(video_path)
         return "✅ Proceso completo"
