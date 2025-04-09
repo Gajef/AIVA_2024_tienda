@@ -13,7 +13,7 @@ class ImpecountController:
 
     def run_daily_pipeline(self):
         print("[1] Obteniendo video del servidor...")
-        video_path = self.sftp.retrieve_last_video()
+        video_path = self.sftp.retrieve_last_videos()
 
         print("[2] Procesando video...")
         info, csv_path = self.video_processor.count_people(video_path)
