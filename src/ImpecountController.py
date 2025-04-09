@@ -4,6 +4,8 @@ from CsvGeneratorController import CsvGeneratorController
 from EmailController import EmailController
 import os
 from datetime import datetime, timedelta
+import time
+
 
 class ImpecountController:
     def __init__(self):
@@ -36,8 +38,16 @@ class ImpecountController:
             print("📩 Envío del informe completado con éxito.")
         else:
             print("⚠️ Hubo un problema al enviar el informe por email.")
-'''
-        print("[5] Eliminando video...")
-        os.remove(video_path)
-        return "✅ Proceso completo"
-'''
+
+        # print("[5] Eliminando video...")
+        # os.remove(video_path)
+        # return "✅ Proceso completo"
+
+    def run(self):
+        while True:
+            now_time = datetime.now()
+            if now_time.hour == 10 and now_time.minute == 0:
+                self.run_daily_pipeline()
+                time.sleep(60)
+            else:
+                time.sleep(30)
