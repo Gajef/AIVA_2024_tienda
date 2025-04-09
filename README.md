@@ -90,9 +90,3 @@ AIVA_2024_tienda/
 └── README.md
 ```
 
----
-
-## 📬 Contacto
-
-Desarrollado por Jesus Fructuoso y Jose Maya.
----
