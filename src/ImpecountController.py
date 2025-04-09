@@ -19,9 +19,13 @@ class ImpecountController:
     def run_daily_pipeline(self):
         print("[1] Obteniendo videos del servidor...")
         videos_path = self.sftp.retrieve_last_videos()
-
-        print("[2] Procesando video...")
+        '''
+        print("[2] Procesando video frontal...")
         people_by_frame, processed_video_path = self.video_processor.count_people_frontal(videos_path[0])
+        videos_path.append(processed_video_path)'''
+
+        print("[2.1] Procesando video lateral...")
+        people_by_frame, processed_video_path = self.video_processor.count_people_lateral(videos_path[1])
         videos_path.append(processed_video_path)
 
         print("[3] Generando CSV...")
@@ -42,7 +46,8 @@ class ImpecountController:
         else:
             print("⚠️ Hubo un problema al enviar el informe por email.")
 
-        self.video_processor.delete_videos(videos_path)
+
+        #self.video_processor.delete_videos(videos_path)
         return "✅ Proceso completo"
 
     def run(self):
