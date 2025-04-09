@@ -1,5 +1,5 @@
 from SFTPController import SFTPController
-from ProcessVideoController import ProcessVideoController
+from ProcessVideoController import VideoController
 from CsvGeneratorController import CsvGeneratorController
 from EmailController import EmailController
 import os
@@ -7,7 +7,7 @@ import os
 class ImpecountController:
     def __init__(self):
         self.sftp = SFTPController()
-        self.video_processor = ProcessVideoController()
+        self.video_processor = VideoController()
         self.csv_generator = CsvGeneratorController()
         self.email = EmailController()
 

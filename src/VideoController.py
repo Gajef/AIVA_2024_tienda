@@ -6,7 +6,7 @@ import time
 import pandas as pd
 import os
 
-class ProcessVideoController:
+class VideoController:
     def __init__(self):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.model = YOLO("yolo11x.pt").to(self.device)
@@ -93,3 +93,6 @@ class ProcessVideoController:
 
     def count_people_lateral(self, video_path: str):
         return "Not implemented", None
+
+    def delete_videos(self, videos_path):
+        return "Eliminados"
