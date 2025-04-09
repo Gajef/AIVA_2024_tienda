@@ -1,3 +1,5 @@
+import argparse
+
 from SFTPController import SFTPController
 from VideoController import VideoController
 from CsvGeneratorController import CsvGeneratorController
@@ -9,10 +11,11 @@ import time
 
 class ImpecountController:
     def __init__(self):
+        self._arguments = self._parse_args()
         self.sftp = SFTPController()
         self.video_processor = VideoController()
         self.csv_generator = CsvGeneratorController()
-        self.email = EmailController()
+        self.email = EmailController(self._arguments.email)
 
     def run_daily_pipeline(self):
         print("[1] Obteniendo videos del servidor...")
@@ -51,3 +54,9 @@ class ImpecountController:
                 time.sleep(60)
             else:
                 time.sleep(30)
+
+    def _parse_args(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--email", dest="email", type=str, help="Receiver email")
+        args = parser.parse_args()
+        return args

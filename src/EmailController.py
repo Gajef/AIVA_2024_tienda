@@ -3,10 +3,10 @@ from email.message import EmailMessage
 import os
 
 class EmailController:
-    def __init__(self):
+    def __init__(self, receiver_email):
         self.sender = "josemayasalas@gmail.com"
         self.password = "yxhsbevdupjgfnky"  # contraseña de aplicación (sin espacios)
-        self.receiver = "jesus.fructuoso@urjc.es"
+        self.receiver = receiver_email
 
     def send_email(self, subject, body, attachment_path):
         try:
