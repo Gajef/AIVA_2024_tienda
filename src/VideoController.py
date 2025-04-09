@@ -81,7 +81,7 @@ class VideoController:
             cv2.putText(frame, f'Right to Left: {len(count_left)}', (10, 40),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
 
-            people_by_frame.append((frame_counter, len(unique_ids)))
+            people_by_frame.append((frame_counter, len(count_left.union(count_right))))
             frame_counter += 1
             out.write(frame)
 
