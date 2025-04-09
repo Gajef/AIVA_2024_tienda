@@ -4,9 +4,9 @@ import os
 
 class EmailController:
     def __init__(self, receiver_email):
-        self.sender = "josemayasalas@gmail.com"
-        self.password = "yxhsbevdupjgfnky"  # contraseña de aplicación (sin espacios)
-        self.receiver = receiver_email
+        self.sender = "impecountsl@gmail.com"
+        self.password = "bvpuntcfwrmxhwvz"  # contraseña de aplicación (sin espacios)
+        self.receiver = "jesus.fructuoso@urjc.es"
 
     def send_email(self, subject, body, attachment_path):
         try:
