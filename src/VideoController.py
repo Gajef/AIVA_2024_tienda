@@ -89,10 +89,20 @@ class VideoController:
         out.release()
 
         print(f"➡️ Video procesado: {output_path}")
-        return people_by_frame
+        return people_by_frame, output_path
 
     def count_people_lateral(self, video_path: str):
         return "Not implemented", None
 
     def delete_videos(self, videos_path):
+        for path in videos_path:
+            try:
+                os.remove(path)
+                print(f"✅ Eliminado: {path}")
+            except FileNotFoundError:
+                print(f"⚠️ No se encontró: {path}")
+            except PermissionError:
+                print(f"❌ Sin permisos para: {path}")
+            except Exception as e:
+                print(f"❌ Error con {path}: {e}")
         return "Eliminados"
