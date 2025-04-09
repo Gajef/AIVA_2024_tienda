@@ -53,8 +53,6 @@ Una vez tengas instaladas las dependencias y hayas clonado el proyecto, puedes e
 python main.py --email tu_correo@ejemplo.com
 ```
 
-📌 **Nota:** Aunque se pide el correo por argumento, actualmente el envío siempre se hace a `jesus.fructuoso@urjc.es` (puedes cambiarlo en `EmailController.py`).
-
 ---
 
 ## 🧪 Ejemplo de ejecución
@@ -88,8 +86,7 @@ AIVA_2024_tienda/
 ├── Videos/                      # Carpeta con vídeos descargados y procesados
 │   ├── frontal/
 │   ├── lateral/
-│   └── Procesado/
-├── Fotos/                       # (opcional) Capturas de ejemplo
+│   └── Procesado/                 
 └── README.md
 ```
 
@@ -97,7 +94,5 @@ AIVA_2024_tienda/
 
 ## 📬 Contacto
 
-Desarrollado por José Manuel Gajete (AIVA 2024 - URJC)  
-Para dudas o sugerencias, puedes abrir un issue o contactarme directamente.
-
+Desarrollado por Jesus Fructuoso y Jose Maya.
 ---
