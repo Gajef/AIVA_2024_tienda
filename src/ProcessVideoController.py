@@ -21,7 +21,8 @@ class ProcessVideoController:
         cap = cv2.VideoCapture(video_path)
         fps = cap.get(cv2.CAP_PROP_FPS)
         output_filename = os.path.basename(video_path)
-        output_path = os.path.join("Videos/Procesado", f"procesado_{output_filename}.avi")
+        output_path = os.path.join(r"C:\Users\josem\PycharmProjects\AIVA_2024_tienda\Videos\Procesado",
+                                   f"procesado_{output_filename}.avi")
         out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'MJPG'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
 
         count_right, count_left = set(), set()

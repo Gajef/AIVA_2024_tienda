@@ -16,8 +16,8 @@ class ImpecountController:
         videos_path = self.sftp.retrieve_last_videos()
 
         print("[2] Procesando video...")
-        info, csv_path = self.video_processor.count_people(videos_path)
-
+        info = self.video_processor.count_people_frontal(videos_path[0])
+'''
         print("[3] Generando CSV...")
         self.csv_generator.generate_csv(info)
 
@@ -31,3 +31,4 @@ class ImpecountController:
         print("[5] Eliminando video...")
         os.remove(video_path)
         return "✅ Proceso completo"
+'''

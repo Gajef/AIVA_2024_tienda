@@ -34,7 +34,7 @@ class SFTPController:
             files = sorted(files, reverse=True)
             latest_file = files[0]
 
-            remote_path = os.path.join(remote_dir, latest_file)
+            remote_path = f"{remote_dir}/{latest_file}"
             local_path = os.path.join(local_dir, latest_file)
 
             print(f"Descargando {remote_path} → {local_path}")
