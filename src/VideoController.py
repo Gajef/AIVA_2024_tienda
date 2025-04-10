@@ -6,6 +6,9 @@ import time
 import pandas as pd
 import os
 
+from Video import Video
+
+
 class VideoController:
     def __init__(self):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -13,7 +16,8 @@ class VideoController:
         self.tracker = DeepSort(max_age=30)
         self.target_class = 0
 
-    def count_people_frontal(self, video_path: str):
+    def count_people_frontal(self, video: Video):
+        video_path = video.getPath()
         FRAME_WIDTH = 384
         FRAME_HEIGHT = 288
         line_x = FRAME_WIDTH // 2
@@ -21,9 +25,10 @@ class VideoController:
         cap = cv2.VideoCapture(video_path)
         fps = cap.get(cv2.CAP_PROP_FPS)
         output_filename = os.path.basename(video_path)
-        output_path = os.path.join(r"C:\Users\josem\PycharmProjects\AIVA_2024_tienda\Videos\Procesado",
-                                   f"procesado_{output_filename}.avi")
-        out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'MJPG'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
+        # Crear carpeta de salida si no existe
+        os.makedirs(os.path.join("Videos", "Procesado"), exist_ok=True)
+        output_path = os.path.join(r".\Videos\Procesado", f"procesado_{output_filename[:-4]}.avi")
+        out = cv2.VideoWriter(output_path, cv2.VideoWriter.fourcc('X', 'V', 'I', 'D'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
 
         count_right, count_left = set(), set()
         track_memory = {}
@@ -87,11 +92,12 @@ class VideoController:
 
         cap.release()
         out.release()
-
+        output_video = Video(output_path)
         print(f"➡️ Video procesado: {output_path}")
-        return people_by_frame, output_path
+        return people_by_frame, output_video
 
-    def count_people_lateral(self, video_path: str):
+    def count_people_lateral(self, video: Video):
+        video_path = video.getPath()
         FRAME_WIDTH = 384
         FRAME_HEIGHT = 288
         line_y = 2 * FRAME_HEIGHT // 3  # Línea horizontal baja (parte inferior del frame)
@@ -99,9 +105,10 @@ class VideoController:
         cap = cv2.VideoCapture(video_path)
         fps = cap.get(cv2.CAP_PROP_FPS)
         output_filename = os.path.basename(video_path)
-        output_path = os.path.join(r"C:\Users\josem\PycharmProjects\AIVA_2024_tienda\Videos\Procesado",
-                                   f"procesado_lateral_{output_filename}.avi")
-        out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'MJPG'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
+        # Crear carpeta de salida si no existe
+        os.makedirs(os.path.join("Videos", "Procesado"), exist_ok=True)
+        output_path = os.path.join(r".\Videos\Procesado", f"procesado_{output_filename[:-4]}.avi")
+        out = cv2.VideoWriter(output_path, cv2.VideoWriter.fourcc('X', 'V', 'I', 'D'), fps, (FRAME_WIDTH, FRAME_HEIGHT))
 
         count_down, count_up = set(), set()
         track_memory = {}
@@ -165,11 +172,12 @@ class VideoController:
 
         cap.release()
         out.release()
-
+        output_video = Video(output_path)
         print(f"➡️ Video procesado: {output_path}")
-        return people_by_frame, output_path
+        return people_by_frame, output_video
 
-    def delete_videos(self, videos_path):
+    def delete_videos(self, videos):
+        videos_path = list(map(lambda video: video.getPath(), videos))
         for path in videos_path:
             try:
                 os.remove(path)

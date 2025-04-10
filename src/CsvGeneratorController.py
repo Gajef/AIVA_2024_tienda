@@ -2,6 +2,8 @@ import os
 import pandas as pd
 from datetime import datetime, timedelta
 
+from CsvFile import CsvFile
+
 class CsvGeneratorController:
     def __init__(self):
         pass
@@ -29,5 +31,7 @@ class CsvGeneratorController:
         output_path = os.path.join(output_dir, f"{video_filename}_informe_por_hora.csv")
         df_horas.to_csv(output_path, index=False)
 
-        print(f"📄 CSV generado en: {output_path}")
-        return output_path
+        generated_csv = CsvFile(output_path)
+
+        print(f"📄 CSV generado en: {generated_csv.getPath()}")
+        return generated_csv

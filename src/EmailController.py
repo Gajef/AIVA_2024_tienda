@@ -6,9 +6,10 @@ class EmailController:
     def __init__(self, receiver_email):
         self.sender = "impecountsl@gmail.com"
         self.password = "bvpuntcfwrmxhwvz"  # contraseña de aplicación (sin espacios)
-        self.receiver = "jesus.fructuoso@urjc.es"
+        self.receiver = receiver_email
 
-    def send_email(self, subject, body, attachment_path):
+    def send_email(self, subject, body, attachment):
+        attachment_path = attachment.getPath()
         try:
             msg = EmailMessage()
             msg["Subject"] = subject
