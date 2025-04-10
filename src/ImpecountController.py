@@ -3,14 +3,14 @@ from SFTPController import SFTPController
 from VideoController import VideoController
 from CsvGeneratorController import CsvGeneratorController
 from EmailController import EmailController
-import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import time
 
 
 class ImpecountController:
     def __init__(self):
         self._arguments = self._parse_args()
+        self._test_mode = self._arguments.test_mode
         self.sftp = SFTPController()
         self.video_processor = VideoController()
         self.csv_generator = CsvGeneratorController()
@@ -53,7 +53,11 @@ class ImpecountController:
     def run(self):
         while True:
             now_time = datetime.now()
-            if now_time.hour == 10 and now_time.minute == 0:
+            if self._test_mode:
+                retrieve_hour = now_time + timedelta(minutes=3)
+            else:
+                retrieve_hour = time(hour=23, minute=0, second=0)
+            if now_time.hour == retrieve_hour.hour and now_time.minute == retrieve_hour.minute:
                 self.run_daily_pipeline()
                 time.sleep(60)
             else:
@@ -61,6 +65,7 @@ class ImpecountController:
 
     def _parse_args(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument("--email", dest="email", type=str, help="Receiver email")
+        parser.add_argument("--email", dest="email", type=str, help="Receiver email", required=True)
+        parser.add_argument("--test", action="store_true", dest="test", help="Activate Test mode")
         args = parser.parse_args()
         return args
