@@ -8,7 +8,8 @@ class EmailController:
         self.password = "bvpuntcfwrmxhwvz"  # contraseña de aplicación (sin espacios)
         self.receiver = receiver_email
 
-    def send_email(self, subject, body, attachment_path):
+    def send_email(self, subject, body, attachment):
+        attachment_path = attachment.getPath()
         try:
             msg = EmailMessage()
             msg["Subject"] = subject
