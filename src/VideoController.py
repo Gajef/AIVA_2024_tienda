@@ -176,7 +176,8 @@ class VideoController:
         print(f"➡️ Video procesado: {output_path}")
         return people_by_frame, output_video
 
-    def delete_videos(self, videos_path):
+    def delete_videos(self, videos):
+        videos_path = list(map(lambda video: video.getPath(), videos))
         for path in videos_path:
             try:
                 os.remove(path)
