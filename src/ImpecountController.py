@@ -18,14 +18,15 @@ class ImpecountController:
     def run_daily_pipeline(self):
         print("[1] Obteniendo videos del servidor...")
         last_videos = self.sftp.retrieve_last_videos()
-        '''
+
         print("[2] Procesando video frontal...")
         people_by_frame, processed_video_path = self.video_processor.count_people_frontal(last_videos[0])
-        last_videos.append(processed_video_path)'''
+        last_videos.append(processed_video_path)
 
+        '''
         print("[2.1] Procesando video lateral...")
         people_by_frame, processed_video = self.video_processor.count_people_lateral(last_videos[1])
-        last_videos.append(processed_video)
+        last_videos.append(processed_video)'''
 
         print("[3] Generando CSV...")
         generated_csv = self.csv_generator.generate_csv(people_by_frame)
