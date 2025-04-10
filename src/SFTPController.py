@@ -1,6 +1,6 @@
 import paramiko
 import os
-
+from Video import Video
 class SFTPController:
     def __init__(self):
         self.host = "212.128.3.86"
@@ -19,7 +19,7 @@ class SFTPController:
 
     def retrieve_last_videos(self):
         sftp = self._connect()
-        downloaded_paths = []
+        downloaded_videos = []
 
         for subdir in self.subdirs:
             remote_dir = f"{self.remote_base_path}/{subdir}"
@@ -39,7 +39,8 @@ class SFTPController:
 
             print(f"Descargando {remote_path} → {local_path}")
             sftp.get(remote_path, local_path)
-            downloaded_paths.append(local_path)
+            local_video = Video(local_path)
+            downloaded_videos.append(local_video)
 
         sftp.close()
-        return downloaded_paths
+        return downloaded_videos
