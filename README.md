@@ -2,12 +2,7 @@
 
 Este proyecto tiene como objetivo proporcionar una solución automatizada para el conteo de personas que pasan frente a la tienda de nuestro cliente, utilizando las grabaciones de video obtenidas de dos cámaras de vigilancia del centro comercial en el que se encuentra dicho local: una frontal y otra lateral.
 
-El sistema se diseña para procesar los videos de cada jornada por la noche, extrayendo información relevante sobre el flujo de personas a lo largo del día. Mediante técnicas de visión artificial, identificaremos y contaremos los transeúntes en las grabaciones, generando un informe con los datos desglosados por hora y de ese día en agregado. Finalmente, estos resultados se enviarán automáticamente al dueño mediante un correo electrónico con un archivo CSV adjunto que contendrá dicha información.
-
-
-# IMPECOUNT – Afluencia de Personas con visión artificial
-
-Este proyecto desarrollado en Python utiliza visión por computador para contar personas que pasan frente a una tienda, usando vídeos de dos cámaras: una **frontal** y otra **lateral**. El sistema descarga los vídeos automáticamente desde un servidor SFTP, los procesa usando un modelo YOLO con seguimiento DeepSort, genera un informe `.csv` con la analítica por hora y lo envía por email.
+El sistema se diseña para procesar los videos de cada jornada por la noche, extrayendo información relevante sobre el flujo de personas a lo largo del día. Mediante técnicas de visión artificial, identificaremos y contaremos las personas que pasan de las grabaciones, generando un informe con los datos desglosados por hora y de ese día en agregado. Finalmente, estos resultados se enviarán automáticamente al dueño mediante un correo electrónico con un archivo CSV adjunto que contendrá dicha información.
 
 ---
 
@@ -62,21 +57,49 @@ Esto hará lo siguiente:
 
 ---
 
+## 🧪 Ejecución de tests
+
+Para verificar que el sistema de detección funciona correctamente, se incluyen tests automatizados para vídeos con y sin personas.
+
+Para ejecutarlos, simplemente se ejecuta en terminal:
+
+```bash
+python -m unittest test/TestVideoController.py
+```
+
+Esto ejecuta los siguientes tests:
+
+- **test_video_with_people_detected**: Verifica que un vídeo con personas sea detectado correctamente.
+- **test_video_without_people_detected**: Verifica que no se detecten personas en un vídeo vacío.
+
+---
+
 ## 📁 Estructura del proyecto
 
 ```
 AIVA_2024_tienda/
 │
-├── main.py                       # Punto de entrada
-├── ImpecountController.py       # Controlador principal del flujo
-├── SFTPController.py            # Gestión de conexión y descarga desde servidor
-├── VideoController.py           # Procesamiento y conteo con YOLO + DeepSort
-├── CsvGeneratorController.py    # Generación de CSV con resultados
-├── EmailController.py           # Envío de correo con el informe
-├── Videos/                      # Carpeta con vídeos descargados y procesados
-│   ├── frontal/
-│   ├── lateral/
-│   └── Procesado/                 
-└── README.md
+├── src/
+│   ├── CsvFile.py                  # Clase axiliar para el tipo de objeto CSV
+│   ├── CsvGeneratorController.py   # Controlador para generar CSVs con resultados
+│   ├── EmailController.py          # Envío de correos con informes
+│   ├── Impecount.py                # Clase que lanza el software
+│   ├── ImpecountController.py      # Controlador general del proceso entero
+│   ├── SFTPController.py           # Gestión de conexión y descarga desde servidor
+│   ├── Video.py                    # Clase auxiliar para manejar vídeos
+│   ├── VideoController.py          # Procesamiento de vídeo y detección con YOLO
+│   ├── Videos/                     # Carpeta para guardar vídeos descargados
+│
+├── test/
+│   ├── TestVideoController.py      # Tests para el módulo de vídeo
+│   ├── Video con personas test.mp4 # Vídeo de prueba con personas
+│   ├── Video test sin personas.mp4 # Vídeo de prueba sin personas
+│   └── Videos/                     # Carpeta para posibles vídeos procesados
+│
+├── yolo11x.pt                      # Modelo de YOLO utilizado
+├── .gitignore                      # Archivos/directorios a ignorar por Git
+├── README.md                       # Documentación general del proyecto
+└── requirements.txt                # Dependencias del proyecto
+
 ```
 
