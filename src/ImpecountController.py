@@ -45,8 +45,12 @@ class ImpecountController:
         else:
             print("⚠️ Hubo un problema al enviar el informe por email.")
 
+        print("[5] Eliminando videos...")
+        if self._test_mode:
+            print(f"⚠️ En el modo test no se eliminan los videos")
+        else:
+            self.video_processor.delete_videos(last_videos)
 
-        # self.video_processor.delete_videos(last_videos)
         return "✅ Proceso completo"
 
     def run(self):
@@ -57,7 +61,7 @@ class ImpecountController:
             if self._test_mode:
                 print("[0] Aplicación iniciada en modo TEST")
                 self.run_daily_pipeline()
-                print("[5] El modo prueba terminó")
+                print("[6] El modo prueba terminó")
                 break
             else:
                 print("[0] Aplicación iniciada")
