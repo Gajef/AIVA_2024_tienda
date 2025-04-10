@@ -6,7 +6,7 @@ import time
 import pandas as pd
 import os
 
-from Video import Video
+from src.Video import Video
 
 
 class VideoController:
