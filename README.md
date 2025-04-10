@@ -96,8 +96,6 @@ AIVA_2024_tienda/
 │   ├── Video test sin personas.mp4 # Vídeo de prueba sin personas
 │   └── Videos/                     # Carpeta para posibles vídeos procesados
 │
-├── yolo11x.pt                      # Modelo de YOLO utilizado
-├── .gitignore                      # Archivos/directorios a ignorar por Git
 ├── README.md                       # Documentación general del proyecto
 └── requirements.txt                # Dependencias del proyecto
 
