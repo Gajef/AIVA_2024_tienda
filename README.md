@@ -32,10 +32,16 @@ cd AIVA_2024_tienda
 
 ## 🚀 Cómo ejecutar el proyecto
 
-Una vez tengas instaladas las dependencias y hayas clonado el proyecto, puedes ejecutar el sistema así:
+Una vez tengas instaladas las dependencias y hayas clonado el proyecto, puedes ejecutar el sistema así para lanzar el software de **manera regular**:
 
 ```bash
 python main.py --email tu_correo@ejemplo.com
+```
+
+O así para ejecutar en **modo prueba**:
+
+```bash
+python main.py --email tu_correo@ejemplo.com --test
 ```
 
 ---
@@ -43,10 +49,10 @@ python main.py --email tu_correo@ejemplo.com
 ## 🧪 Ejemplo de ejecución
 
 ```bash
-python main.py --email usuario@ejemplo.com
+python main.py --email tu_correo@ejemplo.com
 ```
 
-Esto hará lo siguiente:
+Esto lanzará la aplicación en **modo normal** y esperará a que sean las 23:00 hará lo siguiente:
 
 1. Se conecta al servidor SFTP.
 2. Descarga el último vídeo de la cámara **frontal** y **lateral**.
@@ -54,6 +60,8 @@ Esto hará lo siguiente:
 4. Genera un `.csv` con las personas acumuladas por hora.
 5. Envía el CSV por correo electrónico.
 6. Elimina los vídeos locales.
+
+El **modo prueba** realiza los mismos pasos pero estos se hacen en el mismo momento en el que se lanza la aplicación. Además no eliminará los videos locales. (Útil para observar la funcionalidad del software)
 
 ---
 
