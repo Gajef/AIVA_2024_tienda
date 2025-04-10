@@ -2,3 +2,12 @@
 
 # Folders
 .idea/
+
+# Models
+*.pt
+
+# Cache
+__pycache__
+
+# Videos
+Videos/
