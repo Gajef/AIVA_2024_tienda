@@ -25,7 +25,11 @@ class CsvGeneratorController:
         df_horas = pd.DataFrame({
             "Hora estimada": [t.strftime("%H:%M:%S") for t in timestamps],
             "Personas acumuladas": personas
-        })
+        }).groupby("Hora estimada").median()
+
+        df_horas = df_horas.reset_index()
+
+        df_horas['Personas acumuladas'] = df_horas['Personas acumuladas'].round().astype(int)
 
         # Guardar como CSV
         output_path = os.path.join(output_dir, f"{video_filename}_informe_por_hora.csv")
