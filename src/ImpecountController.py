@@ -55,17 +55,18 @@ class ImpecountController:
         return "✅ Proceso completo"
 
     def run(self):
+        print("+-------------------------+\n|      ~ Impecount ~      |\n+-------------------------+")
+        print("[0] Aplicación iniciada")
         while True:
             now_time = datetime.now()
             retrieve_hour = time(hour=23, minute=0, second=0)
-            print("+-------------------------+\n|      ~ Impecount ~      |\n+-------------------------+")
             if self._test_mode:
-                print("[0] Aplicación iniciada en modo TEST")
+                print("[!] Modo TEST iniciado")
                 self.run_daily_pipeline()
                 print("[6] El modo prueba terminó")
                 break
             else:
-                print("[0] Aplicación iniciada")
+                print("[!] Esperando a las 23:00...")
                 if now_time.hour == retrieve_hour.hour and now_time.minute == retrieve_hour.minute:
                     self.run_daily_pipeline()
                     tm.sleep(60)
