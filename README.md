@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 ```bash
 git clone https://github.com/Gajef/AIVA_2024_tienda.git
-cd AIVA_2024_tienda
+cd AIVA_2024_tienda/src
 ```
 
 ---
@@ -35,13 +35,13 @@ cd AIVA_2024_tienda
 Una vez tengas instaladas las dependencias y hayas clonado el proyecto, puedes ejecutar el sistema así para lanzar el software de **manera regular**:
 
 ```bash
-python main.py --email tu_correo@ejemplo.com
+python Impecount.py --email tu_correo@ejemplo.com
 ```
 
 O así para ejecutar en **modo prueba**:
 
 ```bash
-python main.py --email tu_correo@ejemplo.com --test
+python Impecount.py --email tu_correo@ejemplo.com --test
 ```
 
 ---
@@ -49,7 +49,7 @@ python main.py --email tu_correo@ejemplo.com --test
 ## 🧪 Ejemplo de ejecución
 
 ```bash
-python main.py --email tu_correo@ejemplo.com
+python Impecount.py --email tu_correo@ejemplo.com
 ```
 
 Esto lanzará la aplicación en **modo normal** y esperará a que sean las 23:00 hará lo siguiente:
